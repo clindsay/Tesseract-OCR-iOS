@@ -1,4 +1,4 @@
-LEPTON_NAME = leptonica-1.76.0
+LEPTON_NAME = leptonica-1.78.0
 PNG_NAME    = libpng-1.6.31
 JPEG_NAME   = jpeg-9a
 TIFF_NAME   = tiff-4.0.8
@@ -7,7 +7,7 @@ SDK_IPHONEOS_PATH=$(shell xcrun --sdk iphoneos --show-sdk-path)
 SDK_IPHONESIMULATOR_PATH=$(shell xcrun --sdk iphonesimulator --show-sdk-path)
 XCODE_DEVELOPER_PATH=/Applications/Xcode.app/Contents/Developer
 XCODETOOLCHAIN_PATH=$(XCODE_DEVELOPER_PATH)/Toolchains/XcodeDefault.xctoolchain
-IOS_DEPLOY_TGT="7.0"
+IOS_DEPLOY_TGT="8.0"
 
 TESSERACT_SRC = $(shell pwd)/tesseract-ocr
 LEPTON_SRC = $(shell pwd)/$(LEPTON_NAME)
@@ -123,7 +123,7 @@ $(LEPTON_SRC)/%/Makefile : $(imagesfat) $(libleptconfig)
     export LDFLAGS="-L$$SDKROOT/usr/lib/ -L$(LIB_FAT_DIR)" ; \
 	mkdir -p $(@D) ; \
 	cd $(@D) ; \
-    ../configure --host=$* --prefix=`pwd` --enable-shared=no --disable-programs --with-zlib --with-libpng --with-jpeg --without-giflib --with-libtiff
+    ../configure --host=$* --prefix=`pwd` --enable-shared=no --disable-programs --with-zlib --with-libpng --with-jpeg --without-giflib --without-libwebp --without-libopenjpeg --with-libtiff
 
 #######################
 # Build libtiff and all of it's dependencies

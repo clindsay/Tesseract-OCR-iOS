@@ -7,7 +7,7 @@ Easy and fast.**
 
 These are the current versions of the upstream bundled libraries within the framework that this repository provides:
 
-* Tesseract 4.0.0 release ([homepage](https://github.com/tesseract-ocr/tesseract))
+* Tesseract 4.1.0 release ([homepage](https://github.com/tesseract-ocr/tesseract))
 * Leptonica 1.76.0 ([homepage](http://leptonica.org/))
 * Image libraries (Thx to ashtons and his [libtiff-ios] (https://github.com/ashtons/libtiff-ios) port):
 - Libtiff 4.0.9 ([homepage](http://www.remotesensing.org/libtiff/))
