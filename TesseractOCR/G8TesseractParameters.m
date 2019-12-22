@@ -77,7 +77,6 @@ NSString *const kG8ParamTesseditAmbigsTraining = @"tessedit_ambigs_training";
 NSString *const kG8ParamTospOnlyUsePropRows = @"tosp_only_use_prop_rows";
 NSString *const kG8ParamParagraphDebugLevel = @"paragraph_debug_level";
 NSString *const kG8ParamQualityOutlinePc = @"quality_outline_pc";
-NSString *const kG8ParamTessdataManagerDebugLevel = @"tessdata_manager_debug_level";
 NSString *const kG8ParamWordrecDebugBlamer = @"wordrec_debug_blamer";
 NSString *const kG8ParamTesseditRejectMode = @"tessedit_reject_mode";
 NSString *const kG8ParamCrunchTerribleRating = @"crunch_terrible_rating";

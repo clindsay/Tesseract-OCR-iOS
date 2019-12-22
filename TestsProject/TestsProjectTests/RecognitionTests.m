@@ -352,39 +352,4 @@ describe(@"hOCR", ^{
     });
 });
 
-describe(@"PDF", ^{
-  
-    NSData *(^recognizedPDFForImages)(NSArray*images) = ^NSData*(NSArray*images) {
-        G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
-        return [tesseract recognizedPDFForImages:images];
-    };
-    
-    NSData * (^samplePDFDataFromFile)(NSString *fileName) = ^NSData*(NSString *fileName) {
-        NSString *PDFPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"pdf"];
-        NSData *PDF = [NSData dataWithContentsOfFile:PDFPath];
-        NSAssert(PDF, @"There is not %@ file to compare to", PDFPath);
-        return PDF;
-    };
-  
-    it(@"Should generate well scaned page", ^{
-        NSData *pdfData = recognizedPDFForImages(@[[UIImage imageNamed:@"well_scaned_page"]]);
-        [[theValue([pdfData g8_isEqualToData:samplePDFDataFromFile(@"well_scaned_page")]) should] beYes];
-    });
-  
-    context(@"Should generate empty page for", ^{
-      
-        it(@"nil array", ^{
-            [[theValue([recognizedPDFForImages(nil) g8_isEqualToData:samplePDFDataFromFile(@"empty")]) should] beYes];
-        });
-
-        it(@"empty array", ^{
-            [[theValue([recognizedPDFForImages(@[]) g8_isEqualToData:samplePDFDataFromFile(@"empty")]) should] beYes];
-        });
-      
-        it(@"array containing nonimage", ^{
-            [[theValue([recognizedPDFForImages(@[@"someStringAsImage.png"]) g8_isEqualToData:samplePDFDataFromFile(@"empty")]) should] beYes];
-        });
-    });
-});
-
 SPEC_END

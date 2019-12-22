@@ -348,11 +348,6 @@ extern NSString *const kG8ParamParagraphDebugLevel;
 ///@param Default 1.0
 extern NSString *const kG8ParamQualityOutlinePc;
 
-///Debug level for TessdataManager functions.
-///@param Type INT
-///@param Default 0
-extern NSString *const kG8ParamTessdataManagerDebugLevel;
-
 ///Print blamer debug messages
 ///@param Type BOOL
 ///@param Default false

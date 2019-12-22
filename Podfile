@@ -6,6 +6,6 @@ platform :ios, '8.0'
 
 target 'TestsProjectTests' do
 
-	pod 'Kiwi', '~> 2.3.1'
+	pod 'Kiwi', '2.4.0'
 
 end

@@ -45,7 +45,7 @@
 
     // Use the original Tesseract engine mode in performing the recognition
     // (see G8Constants.h) for other engine mode options
-    operation.tesseract.engineMode = G8OCREngineModeTesseractOnly;
+    operation.tesseract.engineMode = G8OCREngineModeLSTMOnly;
     
     // Let Tesseract automatically segment the page into blocks of text
     // based on its analysis (see G8Constants.h) for other page segmentation

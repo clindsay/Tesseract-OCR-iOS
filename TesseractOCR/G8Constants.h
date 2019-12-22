@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, G8OCREngineMode){
     /**
      *  Run Tesseract only - fastest
      */
-    G8OCREngineModeTesseractOnly,
+    G8OCREngineModeTesseractOnly __deprecated,
     /**
      *  Run just the LSTM line recognizer
      */

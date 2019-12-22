@@ -89,7 +89,7 @@ namespace tesseract {
 
 - (instancetype)initWithLanguage:(NSString*)language
 {
-    return [self initWithLanguage:language configDictionary:nil configFileNames:nil cachesRelatedDataPath:nil engineMode:G8OCREngineModeTesseractOnly];
+    return [self initWithLanguage:language configDictionary:nil configFileNames:nil cachesRelatedDataPath:nil engineMode:G8OCREngineModeLSTMOnly];
 }
 
 - (instancetype)initWithLanguage:(NSString *)language engineMode:(G8OCREngineMode)engineMode
@@ -218,7 +218,7 @@ namespace tesseract {
     } else {
         NSLog(@"ERROR! Can't init Tesseract engine.");
         _language = nil;
-        _engineMode = G8OCREngineModeTesseractOnly;
+        _engineMode = G8OCREngineModeLSTMOnly;
         [self freeTesseract];
     }
 
@@ -734,52 +734,6 @@ namespace tesseract {
         }
     }
     return nil;
-}
-
-- (NSData *)recognizedPDFForImages:(NSArray*)images outputbase:(NSString*) outputbase {
-  
-    if (!self.isEngineConfigured) {
-        return nil;
-    }
-    
-    bool textonly;
-    _tesseract->GetBoolVariable("textonly_pdf", &textonly);
-    
-    NSString *path = [self.absoluteDataPath stringByAppendingPathComponent:@"tessdata"];
-    tesseract::TessPDFRenderer *renderer = new tesseract::TessPDFRenderer(outputbase.fileSystemRepresentation, path.fileSystemRepresentation, textonly);
-    
-    // Begin producing output
-    const char* kUnknownTitle = "Unknown Title";
-    if (renderer && !renderer->BeginDocument(kUnknownTitle)) {
-        return nil; // LCOV_EXCL_LINE
-    }
-    
-    bool result = YES;
-    for (int page = 0; page < images.count && result; page++) {
-        UIImage *image = images[page];
-        if ([image isKindOfClass:[UIImage class]]) {
-            Pix *pixs = [self pixForImage:image];
-            Pix *pix = pixConvertTo1(pixs, UINT8_MAX / 2);
-            pixDestroy(&pixs);
-            
-            const char *pagename = [NSString stringWithFormat:@"page #%i", page].UTF8String;
-            result = _tesseract->ProcessPage(pix, page, pagename, NULL, 0, renderer);
-            pixDestroy(&pix);
-        }
-    }
-    
-    //  error
-    if (!result) {
-        return nil; // LCOV_EXCL_LINE
-    }
-    
-    // Finish producing output
-    if (renderer && !renderer->EndDocument()) {
-        return nil; // LCOV_EXCL_LINE
-    }
-    
-    NSData *data = [NSData dataWithContentsOfFile:outputbase];
-    return data;
 }
 
 - (UIImage *)imageWithBlocks:(NSArray *)blocks drawText:(BOOL)drawText thresholded:(BOOL)thresholded
