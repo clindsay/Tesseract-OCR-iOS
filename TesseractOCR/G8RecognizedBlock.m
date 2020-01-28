@@ -20,13 +20,15 @@
     return [self initWithText:nil
                   boundingBox:CGRectZero
                    confidence:0.0f
-                        level:G8PageIteratorLevelBlock];
+                        level:G8PageIteratorLevelBlock
+                     children:nil];
 }
 
 - (instancetype)initWithText:(NSString *)text
                  boundingBox:(CGRect)boundingBox
                   confidence:(CGFloat)confidence
                        level:(G8PageIteratorLevel)level
+                    children:(NSArray<G8RecognizedBlock*>*)children
 {
     self = [super init];
     if (self != nil) {
@@ -34,6 +36,7 @@
         _boundingBox = boundingBox;
         _confidence = confidence;
         _level = level;
+        _children = children;
     }
     return self;
 }

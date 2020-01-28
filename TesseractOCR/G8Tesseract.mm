@@ -653,11 +653,26 @@ namespace tesseract {
         CGRect boundingBox = [self normalizedRectForX:x y:y width:width height:height];
         CGFloat confidence = iterator->Confidence(level);
         delete[] word;
+        
+        NSMutableArray* children = [NSMutableArray new];
+        if (iteratorLevel != G8PageIteratorLevelSymbol) {
+            G8PageIteratorLevel childLevel = (G8PageIteratorLevel) (iteratorLevel + 1);
+            
+            tesseract::ResultIterator iteratorCopy = *iterator;
+            do {
+                G8RecognizedBlock *block = [self blockFromIterator:&iteratorCopy iteratorLevel:childLevel];
+                if (block != nil) {
+                    [children addObject:block];
+                }                
+            } while (!iteratorCopy.IsAtFinalElement(level, (tesseract::PageIteratorLevel) childLevel)
+                     && iteratorCopy.Next((tesseract::PageIteratorLevel) childLevel));
+        }
 
         block = [[G8RecognizedBlock alloc] initWithText:text
                                             boundingBox:boundingBox
                                              confidence:confidence
-                                                  level:iteratorLevel];
+                                                  level:iteratorLevel
+                                                  children: [children copy]];
     }
     return block;
 }
@@ -686,7 +701,8 @@ namespace tesseract {
                     G8RecognizedBlock *choiceBlock = [[G8RecognizedBlock alloc] initWithText:text
                                                                                  boundingBox:block.boundingBox
                                                                                   confidence:confidence
-                                                                                       level:G8PageIteratorLevelSymbol];
+                                                                                       level:G8PageIteratorLevelSymbol
+                                                                        children: nil];
                     [choices addObject:choiceBlock];
                 }
             } while (choiceIterator.Next());

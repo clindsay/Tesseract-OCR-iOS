@@ -45,6 +45,8 @@
  */
 @property (nonatomic, assign, readonly) G8PageIteratorLevel level;
 
+@property (nonatomic, strong, readonly) NSArray<G8RecognizedBlock*>* children;
+
 /**
  *  Initialize a recognized block with the data it will contain.
  *
@@ -59,7 +61,8 @@
 - (instancetype)initWithText:(NSString *)text
                  boundingBox:(CGRect)boundingBox
                   confidence:(CGFloat)confidence
-                       level:(G8PageIteratorLevel)level;
+                       level:(G8PageIteratorLevel)level
+                    children:(NSArray<G8RecognizedBlock*>*)children;
 
 /**
  *  The bounding box rectangle where this recognized block appears in the
