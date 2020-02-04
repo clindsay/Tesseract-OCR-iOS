@@ -894,7 +894,7 @@ namespace tesseract {
 
     CGImageRef cgImage = CGImageCreate(width, height,
                                        bitsPerComponent, bitsPerPixel, bytesPerRow,
-                                       colorSpace, kCGBitmapByteOrderDefault,
+                                       colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaNoneSkipLast,
                                        provider, NULL, NO, kCGRenderingIntentDefault);
 
     CGDataProviderRelease(provider);
